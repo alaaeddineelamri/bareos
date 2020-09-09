@@ -5,3 +5,4 @@
 @plugindir@/BareosFdPluginBaseclass.py*
 @plugindir@/BareosFdPluginLocalFileset.py*
 @plugindir@/BareosFdWrapper.py*
+@plugindir@/bareosfd.so
