@@ -98,11 +98,11 @@ else() # windows
     set(HAVE_PYTHON 1)
     set(Python2_FOUND 1)
     set(Python2_EXT_SUFFIX ".dll")
-    set(Python2_SITLIB ${plugindir})
+    set(Python2_SITELIB ${plugindir})
 
     set(Python3_FOUND 1)
     set(Python3_EXT_SUFFIX ".pyd")
-    set(Python3_SITLIB ${plugindir})
+    set(Python3_SITELIB ${plugindir})
 endif()
 
 
