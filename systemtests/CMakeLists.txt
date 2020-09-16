@@ -597,7 +597,8 @@ endif()
 
 if(TARGET droplet
    AND S3CMD
-   AND MINIO)
+   AND MINIO
+)
   list(APPEND SYSTEM_TESTS droplet-s3)
 else()
   list(APPEND SYSTEM_TESTS_DISABLED droplet-s3)
