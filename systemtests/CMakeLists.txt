@@ -623,7 +623,6 @@ endif()
 if(EXISTS /run/.containerenv)
   message(STATUS "detected container environment, disabling python-bareos")
   set(in_container TRUE)
-  list(APPEND SYSTEM_TESTS "dbcopy-mysql-postgresql")
 else()
   set(in_container FALSE)
 endif()
@@ -975,7 +974,7 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
 
-  set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 180)
+  set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 240)
   math(EXPR BASEPORT "${BASEPORT} + 10")
 
 endforeach()
@@ -1036,7 +1035,7 @@ if(ENABLE_WEBUI_SELENIUM_TEST)
       WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
     )
     set_tests_properties(
-      ${WEBUI_TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 180
+      ${WEBUI_TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 240
     )
     math(EXPR BASEPORT "${BASEPORT} + 10")
   endforeach()
