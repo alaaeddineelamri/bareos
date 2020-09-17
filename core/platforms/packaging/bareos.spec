@@ -986,19 +986,11 @@ pushd %{CMAKE_BUILDDIR}
 make clean
 
 # run the tests and fail build if test fails
-REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous || echo "ctest failed, result:$?"
+REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous | tee ctest.log  || echo "ctest result:$?"
+grep '***Failed' ctest.log  # Error if '***Failed' is found in output
 
 # run only the tests marked as broken and do not fail if they fail
-REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous || echo "ctest failed, result:$?"
-result=$?
-if [ $result -eq 1 ]; then
-  echo "ctest result $result is expected and OK"
-  exit 0
-else
-  echo "ctest result $result is not 1, ERROR"
-fi
-
-
+REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous | tee ctest.log  || echo "ctest broken result:$?"
 
 %install
 ##if 0#{?suse_version}
