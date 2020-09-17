@@ -986,7 +986,7 @@ pushd %{CMAKE_BUILDDIR}
 make clean
 
 # run the tests and fail build if test fails
-REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous
+REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous || echo "ctest failed, result:$?"
 
 # run only the tests marked as broken and do not fail if they fail
 REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous || result=$?
