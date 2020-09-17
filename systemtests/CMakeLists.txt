@@ -575,14 +575,11 @@ set(SYSTEM_TESTS
 set(SYSTEM_TESTS_DISABLED # initially empty
 )
 
-# add tests also here that fail during build
-# they will be run but failing will not fail the build
-set(SYSTEM_TESTS_BROKEN
-  python-bareos
-  droplet-s3
-  config-dump
-  dbcopy-mysql-postgresql
-  )
+# add tests also here that fail during build they will be run but failing will
+# not fail the build
+set(SYSTEM_TESTS_BROKEN python-bareos droplet-s3 config-dump
+                        dbcopy-mysql-postgresql
+)
 
 set(glusterfs_uri
     ""
@@ -627,7 +624,6 @@ if(mysql
 else()
   list(APPEND SYSTEM_TESTS_DISABLED "dbcopy-mysql-postgresql")
 endif()
-
 
 find_program(PYTHON NAMES python python3 python2)
 
@@ -937,12 +933,6 @@ endif()
 
 foreach(TEST_NAME ${SYSTEM_TESTS})
 
-  if (${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
-    set(TEST_PREFIX "broken:${SYSTEMTEST_PREFIX}")
-  else()
-    set(TEST_PREFIX ${SYSTEMTEST_PREFIX})
-  endif()
-
   message(STATUS "Configuring test: ${TEST_PREFIX}${TEST_NAME}")
   string(REGEX MATCH "py2plug" py_v2 "${TEST_NAME}")
   string(REGEX MATCH "py3plug" py_v3 "${TEST_NAME}")
@@ -981,6 +971,9 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     COMMAND ${tests_dir}/${TEST_NAME}/testrunner
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
+  if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
+    set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
+  endif()
 
   set_tests_properties(${TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 300)
   math(EXPR BASEPORT "${BASEPORT} + 10")
