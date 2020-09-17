@@ -989,7 +989,7 @@ make clean
 REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous || echo "ctest failed, result:$?"
 
 # run only the tests marked as broken and do not fail if they fail
-REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous || result=$?
+REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous || echo "ctest failed, result:$?"
 result=$?
 if [ $result -eq 1 ]; then
   echo "ctest result $result is expected and OK"
