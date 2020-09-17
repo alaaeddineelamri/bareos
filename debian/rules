@@ -133,8 +133,8 @@ override_dh_auto_test:
 # see https://www.debian.org/doc/debian-policy/ch-source.html#s-debianrules-options
 # No tabs allowed before ifeq.
 ifneq (nocheck,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	cd obj-x86_64-linux-gnu && make clean && REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous --output-log ctest.log  || echo "ctest result:$?"; grep -v '***Failed' ctest.log  # Error if '***Failed' is found in output
-	REGRESS_DEBUG=1 ctest --tests-regex broken: -j 10 -V -D Continuous  | tee ctest_broken.log || echo "ctest broken result:$?"
+	cd obj-x86_64-linux-gnu && make clean && REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -D Continuous --output-log ctest.log  || echo "ctest result:$?"; grep -v '***Failed' ctest.log  # Error if '***Failed' is found in output
+	REGRESS_DEBUG=1 ctest --tests-regex broken: -j 10 -D Continuous  | tee ctest_broken.log || echo "ctest broken result:$?"
 else
 	@echo "ctest: skipped"
 endif
