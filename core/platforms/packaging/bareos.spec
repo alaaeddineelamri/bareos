@@ -984,7 +984,12 @@ cmake  .. \
 # run unit tests
 pushd %{CMAKE_BUILDDIR}
 make clean
-REGRESS_DEBUG=1 ctest -j 10 -V -D Continuous || result=$?
+
+# run the tests and fail build if test fails
+REGRESS_DEBUG=1 ctest --exclude-regex broken: -j 10 -V -D Continuous
+
+# run only the tests marked as broken and do not fail if they fail
+REGRESS_DEBUG=1 ctest --tests-regex broken:  -j 10 -V -D Continuous || result=$?
 result=$?
 if [ $result -eq 1 ]; then
   echo "ctest result $result is expected and OK"
