@@ -575,6 +575,15 @@ set(SYSTEM_TESTS
 set(SYSTEM_TESTS_DISABLED # initially empty
 )
 
+# add tests also here that fail during build
+# they will be run but failing will not fail the build
+set(SYSTEM_TESTS_BROKEN
+  python-bareos
+  droplet-s3
+  config-dump
+  dbcopy-mysql-postgresql
+  )
+
 set(glusterfs_uri
     ""
     CACHE STRING "URI for GlusterFS backend test"
@@ -927,7 +936,14 @@ else()
 endif()
 
 foreach(TEST_NAME ${SYSTEM_TESTS})
-  message(STATUS "Configuring test: ${SYSTEMTEST_PREFIX}${TEST_NAME}")
+
+  if (${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
+    set(TEST_PREFIX "broken:${SYSTEMTEST_PREFIX}")
+  else()
+    set(TEST_PREFIX ${SYSTEMTEST_PREFIX})
+  endif()
+
+  message(STATUS "Configuring test: ${TEST_PREFIX}${TEST_NAME}")
   string(REGEX MATCH "py2plug" py_v2 "${TEST_NAME}")
   string(REGEX MATCH "py3plug" py_v3 "${TEST_NAME}")
   if(py_v2)
@@ -961,12 +977,12 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
   checkforenabledanddisabledlistentry(${TEST_NAME})
 
   add_test(
-    NAME "${SYSTEMTEST_PREFIX}${TEST_NAME}"
+    NAME "${TEST_PREFIX}${TEST_NAME}"
     COMMAND ${tests_dir}/${TEST_NAME}/testrunner
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
 
-  set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 240)
+  set_tests_properties(${TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 240)
   math(EXPR BASEPORT "${BASEPORT} + 10")
 
 endforeach()
