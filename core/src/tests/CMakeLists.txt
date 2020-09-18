@@ -160,8 +160,8 @@ endif() # NOT client-only
 if(NOT client-only)
   bareos_add_test(
     scheduler_job_item_queue
-    LINK_LIBRARIES dird_objects bareos bareosfind bareoscats bareossql ${GTEST_LIBRARIES}
-                   ${GTEST_MAIN_LIBRARIES}
+    LINK_LIBRARIES dird_objects bareos bareosfind bareoscats bareossql
+                   ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
   )
 endif() # NOT client-only
 
@@ -247,12 +247,10 @@ if(NOT client-only)
   )
 endif() # NOT client-only
 
-bareos_add_test(
-  recent_job_results_list
-  LINK_LIBRARIES bareos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
-  COMPILE_DEFINITIONS TEST_TEMP_DIR=\"${TEST_TEMP_DIR}\"
-                      TEST_ORIGINAL_FILE_DIR=\"${TEST_ORIGINAL_FILE_DIR}\"
-)
+# bareos_add_test( recent_job_results_list LINK_LIBRARIES bareos
+# ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} COMPILE_DEFINITIONS
+# TEST_TEMP_DIR=\"${TEST_TEMP_DIR}\"
+# TEST_ORIGINAL_FILE_DIR=\"${TEST_ORIGINAL_FILE_DIR}\" )
 
 if(NOT client-only)
   bareos_add_test(
