@@ -986,7 +986,7 @@ pushd %{CMAKE_BUILDDIR}
 make clean
 
 # run the tests and fail build if test fails
-REGRESS_DEBUG=1 ctest -j 10 --exclude-regex broken: -D Experimental --output-log ctest.log  || echo "ctest result:$?"; grep  '***Failed' ctest.log && false
+REGRESS_DEBUG=1 ctest -j 10 --label-exclude broken -D Experimental --output-log ctest.log  || echo "ctest result:$?"; grep  '***Failed' ctest.log && false
 
 %install
 ##if 0#{?suse_version}
