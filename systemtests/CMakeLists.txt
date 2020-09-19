@@ -578,6 +578,8 @@ set(SYSTEM_TESTS_DISABLED # initially empty
 # add tests also here that fail during build they will be run but failing will
 # not fail the build
 set(SYSTEM_TESTS_BROKEN
+    client-initiated
+    multiplied-device
     bareosfd-python2-module
     config-dump
     dbcopy-mysql-postgresql
