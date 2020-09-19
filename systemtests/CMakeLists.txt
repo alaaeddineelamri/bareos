@@ -580,7 +580,6 @@ set(SYSTEM_TESTS_DISABLED # initially empty
 set(SYSTEM_TESTS_BROKEN
     client-initiated
     multiplied-device
-    bareosfd-python2-module
     config-dump
     dbcopy-mysql-postgresql
     droplet-s3

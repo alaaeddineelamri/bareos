@@ -121,6 +121,8 @@ if(Python2_FOUND)
       ENVIRONMENT
       "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/pythonmodules:${CMAKE_CURRENT_SOURCE_DIR}/test"
       LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}/../../../lib
+      LABELS
+      "broken"
   )
 endif()
 
