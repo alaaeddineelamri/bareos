@@ -985,7 +985,7 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
   endif()
 
-  set_tests_properties(${TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 600)
+  set_tests_properties(${TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 180)
   math(EXPR BASEPORT "${BASEPORT} + 10")
 
 endforeach()
@@ -1046,7 +1046,7 @@ if(ENABLE_WEBUI_SELENIUM_TEST)
       WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
     )
     set_tests_properties(
-      ${WEBUI_TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 600
+      ${WEBUI_TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 180
     )
     math(EXPR BASEPORT "${BASEPORT} + 10")
   endforeach()
