@@ -134,7 +134,6 @@ override_dh_auto_test:
 # No tabs allowed before ifeq.
 ifneq (nocheck,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	cd obj-$(DEB_BUILD_GNU_TYPE) && make clean && REGRESS_DEBUG=1 ctest -j 10 --label-exclude broken -D Experimental --output-log /tmp/ctest.log || echo "ctest result:$?"
-	find . -type D -name Testing || echo "not found"
 else
 	@echo "ctest: skipped"
 endif
