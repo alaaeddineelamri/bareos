@@ -987,6 +987,7 @@ make clean
 
 # run the tests and fail build if test fails
 REGRESS_DEBUG=1 ctest -j 5 --label-exclude broken -D Experimental --output-log ctest.log  || echo "ctest result:$?"
+find . -type D -name Testing || echo "not found"
 
 %install
 ##if 0#{?suse_version}
