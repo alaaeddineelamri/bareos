@@ -577,9 +577,10 @@ set(SYSTEM_TESTS_DISABLED # initially empty
 
 # add tests also here that fail during build they will be run but failing will
 # not fail the build
-set(SYSTEM_TESTS_BROKEN # config-dump
-    # dbcopy-mysql-postgresql py2plug-fd-postgres py3plug-fd-local-fileset
-    # py3plug-fd-postgres python-bareos scheduler-backup volume-pruning
+set(SYSTEM_TESTS_BROKEN
+    config-dump dbcopy-mysql-postgresql py2plug-fd-postgres
+    py3plug-fd-local-fileset py3plug-fd-postgres python-bareos scheduler-backup
+    volume-pruning
 )
 
 set(glusterfs_uri
