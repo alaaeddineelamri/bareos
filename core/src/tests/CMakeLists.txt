@@ -253,6 +253,14 @@ bareos_add_test(
   COMPILE_DEFINITIONS TEST_TEMP_DIR=\"${TEST_TEMP_DIR}\"
                       TEST_ORIGINAL_FILE_DIR=\"${TEST_ORIGINAL_FILE_DIR}\"
 )
+set_tests_properties(
+  gtest:recent_job_results_list.read_job_results_from_file PROPERTIES LABELS
+                                                                      "broken"
+)
+set_tests_properties(
+  gtest:recent_job_results_list.write_job_results_to_file PROPERTIES LABELS
+                                                                     "broken"
+)
 
 if(NOT client-only)
   bareos_add_test(

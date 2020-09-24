@@ -978,7 +978,7 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
       set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
     else()
-      message(WARNING "set label broken: no test ${TEST_NAME} found")
+      message(FATAL_ERROR "set label broken: no test ${TEST_NAME} found")
     endif()
   endif()
 
