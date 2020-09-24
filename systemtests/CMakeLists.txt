@@ -974,12 +974,10 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     COMMAND ${tests_dir}/${TEST_NAME}/testrunner
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
-  if(TEST ${TEST_NAME})
-    if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
-      set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
-    else()
-      message(FATAL_ERROR "set label broken: no test ${TEST_NAME} found")
-    endif()
+  if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
+    set_tests_properties(
+      ${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES LABELS "broken"
+    )
   endif()
 
   set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 300)
