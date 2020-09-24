@@ -26,6 +26,7 @@ macro(bareos_gtest_add_tests testname)
     TEST_PREFIX gtest:
     TEST_LIST found_tests
   )
+  set_tests_properties(${found_tests} PROPERTIES TIMEOUT 120)
   if(HAVE_WIN32)
     set_tests_properties(
       ${found_tests} PROPERTIES ENVIRONMENT "WINEPATH=${WINEPATH}"
@@ -174,16 +175,12 @@ if(NOT client-only)
   bareos_add_test(
     test_db_list_ctx
     LINK_LIBRARIES
-      #dird_objects
+      # dird_objects
       bareos
-      #bareosfind
-      bareoscats
-      bareossql
-      ${GTEST_LIBRARIES}
-      ${GTEST_MAIN_LIBRARIES}
+      # bareosfind
+      bareoscats bareossql ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
   )
 endif()
-
 
 if(NOT client-only)
   bareos_add_test(
@@ -442,6 +439,5 @@ if(NOT client-only)
 endif() # NOT client-only
 
 bareos_add_test(
-  test_edit LINK_LIBRARIES bareos ${GTEST_LIBRARIES}
-                                    ${GTEST_MAIN_LIBRARIES}
+  test_edit LINK_LIBRARIES bareos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
 )
