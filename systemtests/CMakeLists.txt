@@ -22,6 +22,7 @@ cmake_minimum_required(VERSION 3.3)
 project(bareos-systemtests)
 cmake_policy(SET CMP0057 NEW) # IF(.. IN_LIST ..)
 cmake_policy(SET CMP0053 NEW)
+cmake_policy(SET CMP0064 NEW) # IF(TEST ...)
 
 # create a variable BINARY_NAME_TO_TEST for each binary name bareos-dir ->
 # BAREOS_DIR_TO_TEST bconsole -> BCONSOLE_TO_TEST
@@ -973,8 +974,12 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     COMMAND ${tests_dir}/${TEST_NAME}/testrunner
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
-  if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
-    set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
+  if(TEST ${TEST_NAME})
+    if(${TEST_NAME} IN_LIST SYSTEM_TESTS_BROKEN)
+      set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
+    else()
+      message(WARNING "set label broken: no test ${TEST_NAME} found")
+    endif()
   endif()
 
   set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 600)
