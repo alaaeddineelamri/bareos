@@ -935,7 +935,7 @@ endif()
 
 foreach(TEST_NAME ${SYSTEM_TESTS})
 
-  message(STATUS "Configuring test: ${TEST_PREFIX}${TEST_NAME}")
+  message(STATUS "Configuring test: ${SYSTEMTEST_PREFIX}${TEST_NAME}")
   string(REGEX MATCH "py2plug" py_v2 "${TEST_NAME}")
   string(REGEX MATCH "py3plug" py_v3 "${TEST_NAME}")
   if(py_v2)
@@ -969,7 +969,7 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
   checkforenabledanddisabledlistentry(${TEST_NAME})
 
   add_test(
-    NAME "${TEST_PREFIX}${TEST_NAME}"
+    NAME "${SYSTEMTEST_PREFIX}${TEST_NAME}"
     COMMAND ${tests_dir}/${TEST_NAME}/testrunner
     WORKING_DIRECTORY ${tests_dir}/${TEST_NAME}
   )
@@ -977,7 +977,7 @@ foreach(TEST_NAME ${SYSTEM_TESTS})
     set_tests_properties(${TEST_NAME} PROPERTIES LABELS "broken")
   endif()
 
-  set_tests_properties(${TEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 600)
+  set_tests_properties(${SYSTEMTEST_PREFIX}${TEST_NAME} PROPERTIES TIMEOUT 600)
   math(EXPR BASEPORT "${BASEPORT} + 10")
 
 endforeach()
