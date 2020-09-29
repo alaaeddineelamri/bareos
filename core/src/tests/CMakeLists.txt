@@ -226,11 +226,14 @@ bareos_add_test(
                                     ${GTEST_MAIN_LIBRARIES}
 )
 
-bareos_add_test(
-  cram_md5
-  LINK_LIBRARIES bareos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
-  ADDITIONAL_SOURCES bareos_test_sockets.cc
-)
+# these tests fail in wine
+if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  bareos_add_test(
+    cram_md5
+    LINK_LIBRARIES bareos ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}
+    ADDITIONAL_SOURCES bareos_test_sockets.cc
+  )
+endif()
 
 if(NOT client-only)
   bareos_add_test(multiplied_device_test LINK_LIBRARIES ${LINK_LIBRARIES})
